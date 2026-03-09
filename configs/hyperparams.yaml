@@ -1,0 +1,41 @@
+# configs/hyperparams.yaml
+# Default hyperparameters for MoSEs reproduction
+# These match the paper's defaults unless noted
+
+sar:
+  n_prototypes: 10        # Number of style prototype clusters (K)
+  epsilon: 0.05           # Sinkhorn-Knopp regularization strength
+  epochs: 100             # Training epochs
+  lr: 0.01                # Prototype update learning rate
+  neighborhood_k: 20      # Retrieved neighbor count per query
+
+cte_lr:
+  C: 1.0                  # Inverse regularization strength
+  max_iter: 1000
+  class_weight: "balanced"
+
+cte_xg:
+  n_estimators: 100       # Paper default
+  max_depth: 6            # Paper default
+  learning_rate: 0.1
+
+preprocessing:
+  pca_dims: 32            # PCA projection dimension (paper default)
+  proxy_model: "EleutherAI/gpt-neo-2.7B"
+  embedding_model: "bge-m3"
+  max_length: 512
+
+splits:
+  main:
+    ref: 1800
+    test: 200
+  low_resource:
+    ref: 200
+    test: 200
+
+datasets:
+  main: ["CMV", "SciXGen", "WP", "XSum"]
+  low_resource: ["CNN", "DialogSum", "IMDB", "PubMedQA"]
+  additional: ["TruthfulQA", "HC3"]
+
+detectors: ["roberta", "fastdetectgpt", "lastde"]
